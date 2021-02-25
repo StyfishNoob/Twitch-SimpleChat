@@ -1,3 +1,3 @@
-##Twitch-SimpleChat
+## Twitch-SimpleChat
 Chrome Extension
 >URL：
