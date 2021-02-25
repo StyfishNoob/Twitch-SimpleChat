@@ -1,3 +1,3 @@
 ## Twitch-SimpleChat
 Chrome Extension
->URL：
+>WebStore URL：
