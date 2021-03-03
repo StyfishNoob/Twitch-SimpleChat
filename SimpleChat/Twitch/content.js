@@ -5,10 +5,6 @@
  var stylesheets;
  var item_num;
 
- var onoff_toggle;
- var name_toggle;
- var stripe_toggle;
-
  const name_css = ".chat-line__username-container span";
  const separator_css = 'span[data-test-selector="chat-message-separator"]';
  const back_css = ".chat-scrollable-area__message-container > :nth-child(2n)";
@@ -16,12 +12,6 @@
  const name_cssrule = ".chat-line__username-container span{ display: none !important; }";
  const separator_cssrule = 'span[data-test-selector="chat-message-separator"]{ display: none !important; }';
  var back_cssrule;
-
- window.onload = function(){
-   onoff_toggle = 0;
-   name_toggle = 0;
-   stripe_toggle = 0;
- }
 
  setInterval(function(){
    comment = document.querySelectorAll(".text-fragment");
