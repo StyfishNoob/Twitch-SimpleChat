@@ -1,15 +1,5 @@
  'use strict';
 
- var switch_onoff  = document.getElementById("css_switch_onoff");
- var switch_name   = document.getElementById("css_switch_name");
- var switch_stripe = document.getElementById("css_switch_stripe");
- var comment_limit = document.getElementById("comment_limit");
- var limit_display = document.getElementById("limit_display");
-
- var showhide_onoff = document.getElementById("showhide_onoff");
- var showhide_name = document.getElementById("showhide_name");
- var showhide_stripe = document.getElementById("showhide_stripe");
-
  var limit_function = function(){
    chrome.storage.local.set({key_comment_limit: comment_limit.value});
    chrome.storage.local.get(["key_comment_limit"], function(result){
@@ -22,32 +12,37 @@
  }
 
  var onoff_function = function(){
-   chrome.storage.local.set({key_switch_onoff: switch_onoff.checked});
+   chrome.storage.local.set({key_switch_onoff: css_switch_onoff.checked});
 
-   if(switch_onoff.checked == true){
-     switch_name.disabled = false;
-     switch_stripe.disabled = false;
+   if(css_switch_onoff.checked == true){
+     css_switch_name.disabled = false;
+     css_switch_stripe.disabled = false;
    }
 
-   if(switch_onoff.checked == false){
-     switch_name.checked = false;
-     switch_stripe.checked = false;
-     switch_name.disabled = true;
-     switch_stripe.disabled = true;
+   if(css_switch_onoff.checked == false){
+     css_switch_name.checked = false;
+     css_switch_stripe.checked = false;
+     css_switch_name.disabled = true;
+     css_switch_stripe.disabled = true;
      chrome.storage.local.set({key_switch_name: false});
      chrome.storage.local.set({key_switch_stripe: false});
    }
  }
 
  var name_function = function(){
-   chrome.storage.local.set({key_switch_name: switch_name.checked});
+   chrome.storage.local.set({key_switch_name: css_switch_name.checked});
  }
 
  var stripe_function= function(){
-   chrome.storage.local.set({key_switch_stripe: switch_stripe.checked});
+   chrome.storage.local.set({key_switch_stripe: css_switch_stripe.checked});
+ }
+
+ var darkmode_function = function(){
+   chrome.storage.local.set({key_switch_darkmode: css_switch_darkmode.checked});
  }
 
  comment_limit.addEventListener("input", limit_function);
- switch_onoff.addEventListener("click", onoff_function);
- switch_name.addEventListener("click", name_function);
- switch_stripe.addEventListener("click", stripe_function);
+ css_switch_onoff.addEventListener("click", onoff_function);
+ css_switch_name.addEventListener("click", name_function);
+ css_switch_stripe.addEventListener("click", stripe_function);
+ css_switch_darkmode.addEventListener("click", darkmode_function);

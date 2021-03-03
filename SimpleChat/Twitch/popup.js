@@ -1,21 +1,18 @@
  'use strict';
 
- var switch_onoff  = document.getElementById("css_switch_onoff");
- var switch_name   = document.getElementById("css_switch_name");
- var switch_stripe = document.getElementById("css_switch_stripe");
- var comment_limit = document.getElementById("comment_limit");
- var limit_display = document.getElementById("limit_display");
-
  window.onload = function(){
-   chrome.storage.local.get(["key_comment_limit","key_switch_onoff","key_switch_name","key_switch_stripe"], function(result){
+   chrome.storage.local.get(["key_comment_limit","key_switch_onoff","key_switch_name","key_switch_stripe","key_switch_darkmode"], function(result){
+     darkmode_span.innerHTML = "";
      comment_limit.value = result.key_comment_limit;
-     switch_onoff.checked = result.key_switch_onoff;
-     switch_name.checked = result.key_switch_name;
-     switch_stripe.checked = result.key_switch_stripe;
+     css_switch_onoff.checked = result.key_switch_onoff;
+     css_switch_name.checked = result.key_switch_name;
+     css_switch_stripe.checked = result.key_switch_stripe;
+     css_switch_darkmode.checked = result.key_switch_darkmode;
 
-     if(switch_onoff.checked == false){
-       switch_name.disabled = true;
-       switch_stripe.disabled = true;
+
+     if(css_switch_onoff.checked == false){
+       css_switch_name.disabled = true;
+       css_switch_stripe.disabled = true;
      }
 
      if(result.key_comment_limit == 0){
@@ -28,5 +25,5 @@
  }
 
  var clear = function(){
-   chrome.storage.local.remove(["key_comment_limit","key_switch_onoff","key_switch_name","key_switch_stripe","key_switch_onoff_toggle","key_switch_name_toggle","key_switch_stripe_toggle"]);
+   chrome.storage.local.remove(["key_comment_limit","key_switch_onoff","key_switch_name","key_switch_stripe","key_switch_onoff_toggle","key_switch_name_toggle","key_switch_stripe_toggle","key_switch_darkmode"]);
  }
