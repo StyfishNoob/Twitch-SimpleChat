@@ -14,6 +14,16 @@
  var back_cssrule;
 
  setInterval(function(){
+   chrome.storage.local.get(["key_comment_limit"], function(result){
+     comment.forEach(function(value){
+       if(value.outerText.length > result.key_comment_limit && result.key_comment_limit != 0){
+         value.innerHTML = "#拡張機能により削除されました";
+       }
+     })
+   });
+ }, 100)
+
+ setInterval(function(){
    comment = document.querySelectorAll(".text-fragment");
    stylesheet = document.styleSheets;
    item_num = stylesheet.length -1;
@@ -25,14 +35,6 @@
      name_function();
      stripe_function();
    }
-
-   chrome.storage.local.get(["key_comment_limit"], function(result){
-     comment.forEach(function(value){
-       if(value.outerText.length > result.key_comment_limit && result.key_comment_limit != 0){
-         value.innerHTML = "#拡張機能により削除されました";
-       }
-     })
-   });
  }, 1000)
 
  var onoff_function = function(){
