@@ -1,6 +1,6 @@
  'use strict';
 
- var comment = document.querySelectorAll(".chat-line__message");
+ var comment = document.querySelectorAll(".text-fragment");
  var stylesheet;
  var stylesheets;
  var item_num;
@@ -14,14 +14,28 @@
  var back_cssrule;
 
  setInterval(function(){
-   chrome.storage.local.get(["key_comment_limit"], function(result){
+   chrome.storage.local.get(["key_comment_limit","key_NGarray"], function(result){
      comment.forEach(function(value){
+       var commentText = value.innerHTML;
+
        if(value.outerText.length > result.key_comment_limit && result.key_comment_limit != 0){
          value.innerHTML = "#拡張機能により削除されました";
        }
+
+       if(result.key_NGarray){
+         result.key_NGarray.forEach(function(ngword){
+           console.log(result.key_NGarray);
+           var indexof = commentText.indexOf(ngword);
+
+           if(indexof != -1){
+             console.log(commentText);
+             value.innerHTML = "#NGワードが含まれています";
+           }
+         })
+       }
      })
    });
- }, 100)
+ }, 500)
 
  setInterval(function(){
    comment = document.querySelectorAll(".text-fragment");
@@ -29,7 +43,8 @@
    item_num = stylesheet.length -1;
    stylesheets = document.styleSheets.item(item_num);
 
-   if(stylesheets && stylesheet.length > 13){
+
+   if(stylesheets){
      back_function();
      onoff_function();
      name_function();
@@ -38,11 +53,14 @@
  }, 1000)
 
  var onoff_function = function(){
-   chrome.storage.local.get(["key_switch_onoff"], function(result){
+   chrome.storage.local.get(["key_switch_onoff","key_switch_name","key_switch_stripe"], function(result){
 
-     if(result.key_switch_onoff  == true){
+     if(result.key_switch_onoff  == true && result.key_switch_onoff == false){
        exist_css_insert(name_css,name_cssrule,false);
        exist_css_insert(separator_css,separator_cssrule,false);
+     }
+
+     if(result.key_switch_onoff  == true && result.key_switch_stripe == false){
        exist_css_insert(back_css,back_cssrule,false);
      }
 
@@ -94,15 +112,16 @@
        back_cssrule = ".chat-scrollable-area__message-container > :nth-child(2n){ background-color: #f5f5f5 }";
      }
 
-     if(back_css != back_cssrule){
+     if(check_css(back_css) == true){ //途中でダークモードを切り替えた場合に必要
        exist_ruledel(back_css);
-       stylesheets.insertRule("back_cssrule");
+       stylesheets.insertRule(back_cssrule, stylesheets.cssRules.length);
      }
    })
  }
 
  var exist_ruledel = function(value){
-   for(var i = 0; i < stylesheets.cssRules.length; i++){
+   var rulelength = stylesheets.cssRules.length -1;
+   for(var i = rulelength; i > 0; i--){
      if(stylesheets.cssRules[i].selectorText == value){
        stylesheets.deleteRule(i);
      }
@@ -117,7 +136,7 @@
 
  var check_css = function(value){
    var toggle = false;
-   var length = stylesheets.cssRules.length -1 +1;
+   var length = stylesheets.cssRules.length -1;
 
    for(var i = 0; i < length; i++){
      if(stylesheets.cssRules[i].selectorText == value){
