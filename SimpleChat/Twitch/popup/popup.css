@@ -57,6 +57,7 @@
  }
 
  .added{
+   display: none;
 
    position: absolute;
    right: 12px;
@@ -66,18 +67,23 @@
    padding-left: 5px;
    padding-right: 5px;
 
-   background-color: #98fb98;
+   background-color: #d6edda;
+   color: #517b57;
    border-radius: 3px;
    font-size: 75%;
  }
 
+ .added-display{
+   display: block;
+ }
+
  .fadeout{
-   animation: fadeOut 1s;
+   animation: fadeOut 3s;
    animation-fill-mode: both;
  }
 
  @keyframes fadeOut {
-  0% {
+  20% {
     opacity: 1;
   }
   100% {

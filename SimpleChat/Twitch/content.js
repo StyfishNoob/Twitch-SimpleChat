@@ -24,7 +24,6 @@
 
        if(result.key_NGarray){
          result.key_NGarray.forEach(function(ngword){
-           console.log(result.key_NGarray);
            var indexof = commentText.indexOf(ngword);
 
            if(indexof != -1){

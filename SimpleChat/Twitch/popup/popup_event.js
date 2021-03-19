@@ -45,7 +45,8 @@
 
  var addNG_function = function(){
    if(NGword.value){
-
+     addedNG.classList.remove("added-display");
+     
      chrome.storage.local.get(["key_NGarray"], function(result){
        if(result.key_NGarray){
          ng_array = result.key_NGarray;
@@ -59,6 +60,7 @@
        }
 
        NGword.value = "";
+       addedNG.classList.add("added-display");
      })
    }
  }
