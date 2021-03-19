@@ -1,0 +1,31 @@
+{
+  "manifest_version":2,
+  "name":"Twitch Simple Chat",
+  "version":"1.8",
+  "description":"Twitch Simple Chat",
+
+  "icons": {
+    "16":  "icon.png",
+    "48":  "icon.png",
+    "128": "icon.png"
+  },
+
+  "content_scripts":[
+    {
+      "matches":["https://www.twitch.tv/*"],
+      "js":["/Twitch/content.js"]
+    }
+  ],
+
+  "browser_action": {
+   "default_popup": "/Twitch/popup/popup.html",
+   "default_title": "Twitchのコメント欄を見やすく！"
+ },
+
+ "background": {
+      "scripts": ["/Twitch/background.js"],
+      "persistent": true
+    },
+
+  "permissions": ["storage"]
+}
