@@ -46,27 +46,62 @@
  var addNG_function = function(){
    if(NGword.value){
      addedNG.classList.remove("added-display");
-     
+     addedNG_error.classList.remove("added-error-display");
+
      chrome.storage.local.get(["key_NGarray"], function(result){
-       if(result.key_NGarray){
-         ng_array = result.key_NGarray;
-         ng_array.push(NGword.value);
-         chrome.storage.local.set({key_NGarray: ng_array});
-         console.log(result.key_NGarray);
-       }else{
-         ng_array = new Array(0);
-         ng_array.push(NGword.value);
-         chrome.storage.local.set({key_NGarray: ng_array});
+       WordCheck:{
+         if(array_comp(result.key_NGarray, NGword.value) == true){
+           console.log(array_comp(result.key_NGarray, NGword.value));
+           addedNG_error.classList.add("added-error-display");
+         }
        }
 
-       NGword.value = "";
-       addedNG.classList.add("added-display");
+       NGword:{
+         if(result.key_NGarray){
+           if(array_comp(result.key_NGarray, NGword.value) == false){
+             ng_array = result.key_NGarray;
+             ng_array.push(NGword.value);
+             chrome.storage.local.set({key_NGarray: ng_array});
+
+             addedNG.classList.add("added-display");
+           }
+         }else{
+           ng_array = new Array(0);
+           ng_array.push(NGword.value);
+           chrome.storage.local.set({key_NGarray: ng_array});
+
+           addedNG.classList.add("added-display");
+         }
+       }
+
+       clear:{
+         NGword.value = "";
+       }
      })
    }
  }
 
  var listNG_function = function(){
    window.open("/Twitch/popup/NG/NGList.html");
+ }
+
+ var array_comp = function(array, target){
+   var returnValue = false;
+   if(array){
+     array.forEach(function(value){
+       if(value === target){
+         console.log(value + "" + target);
+         returnValue = true;
+       }
+     })
+   }else{
+     return returnValue;
+   }
+   return returnValue;
+ }
+
+ var clear = function(){
+   chrome.storage.local.clear();
  }
 
  comment_limit.addEventListener("input", limit_function);
@@ -76,7 +111,3 @@
  css_switch_darkmode.addEventListener("click", darkmode_function);
  addNGbutton.addEventListener("click", addNG_function);
  Listbutton.addEventListener("click", listNG_function);
-
- var clear = function(){
-   chrome.storage.local.clear();
- }

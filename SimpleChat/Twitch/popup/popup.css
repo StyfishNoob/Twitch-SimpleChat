@@ -73,7 +73,28 @@
    font-size: 75%;
  }
 
+ .added-error{
+   display: none;
+
+   position: absolute;
+   right: 12px;
+   top: 16px;
+
+   padding: 2px;
+   padding-left: 5px;
+   padding-right: 5px;
+
+   background-color: #ed6f6f;
+   color: #7b5151;
+   border-radius: 3px;
+   font-size: 75%;
+ }
+
  .added-display{
+   display: block;
+ }
+
+ .added-error-display{
    display: block;
  }
 
