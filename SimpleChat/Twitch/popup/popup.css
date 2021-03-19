@@ -56,6 +56,35 @@
    padding-left: 10px;
  }
 
+ .added{
+
+   position: absolute;
+   right: 12px;
+   top: 16px;
+
+   padding: 2px;
+   padding-left: 5px;
+   padding-right: 5px;
+
+   background-color: #98fb98;
+   border-radius: 3px;
+   font-size: 75%;
+ }
+
+ .fadeout{
+   animation: fadeOut 1s;
+   animation-fill-mode: both;
+ }
+
+ @keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
  @keyframes rotation{
    0%{ transform: rotate(0); }
    100%{ transform: rotate(360deg); }

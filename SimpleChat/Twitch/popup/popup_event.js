@@ -51,6 +51,7 @@
          ng_array = result.key_NGarray;
          ng_array.push(NGword.value);
          chrome.storage.local.set({key_NGarray: ng_array});
+         console.log(result.key_NGarray);
        }else{
          ng_array = new Array(0);
          ng_array.push(NGword.value);
