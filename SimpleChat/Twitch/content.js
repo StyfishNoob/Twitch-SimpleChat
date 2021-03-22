@@ -1,6 +1,7 @@
  'use strict';
 
- var comment = document.querySelectorAll(".text-fragment");
+ var comment = document.getElementsByClassName("text-fragment");
+ var username = document.getElementsByClassName("chat-author__display-name");
  var stylesheet;
  var stylesheets;
  var item_num;
@@ -14,12 +15,19 @@
  var back_cssrule;
 
  setInterval(function(){
-   chrome.storage.local.get(["key_comment_limit","key_NGarray"], function(result){
-     comment.forEach(function(value){
-       var commentText = value.innerHTML;
+   comment = document.getElementsByClassName("text-fragment");
+   username = document.getElementsByClassName("chat-author__display-name");
 
-       if(value.outerText.length > result.key_comment_limit && result.key_comment_limit != 0){
-         value.innerHTML = "#拡張機能により削除されました";
+   chrome.storage.local.get(["key_comment_limit","key_NGarray"], function(result){
+     for(var i = comment.length -1; i >= 0; i--){
+       var commentText = comment[i].innerHTML;
+       var overMes = "#文字数オーバーです";
+       var ngMes = "#NGワードが含まれています";
+
+       if(comment[i].innerHTML.length > result.key_comment_limit && result.key_comment_limit != 0 && comment[i].innerHTML != overMes){
+         comment[i].innerHTML = overMes;
+         console.log(username[i].innerHTML);
+
        }
 
        if(result.key_NGarray){
@@ -28,20 +36,18 @@
 
            if(indexof != -1){
              console.log(commentText);
-             value.innerHTML = "#NGワードが含まれています";
+             comment[i].innerHTML = ngMes;
            }
          })
        }
-     })
+     }
    });
  }, 500)
 
  setInterval(function(){
-   comment = document.querySelectorAll(".text-fragment");
    stylesheet = document.styleSheets;
    item_num = stylesheet.length -1;
    stylesheets = document.styleSheets.item(item_num);
-
 
    if(stylesheets){
      back_function();
