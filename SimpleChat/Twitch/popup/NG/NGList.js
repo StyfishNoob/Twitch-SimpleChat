@@ -12,16 +12,19 @@
          chrome.storage.local.set({key_NGarray: sortarray});
        }
 
-       chrome.storage.local.get(["key_NGarray"], function(result){
-         console.log(result.key_NGarray);
-         for(var i = 0; i < result.key_NGarray.length; i++){
+       chrome.storage.local.get(["key_NGarray"], function(value){
+         for(var i = 0; i < value.key_NGarray.length; i++){
            if(result.key_NGarray[i]){
              var spanID = "lispan" + i;
-             var insHTML = "<div class='lidiv'><li><span class='lispan' id=" + spanID + " >" + result.key_NGarray[i] + "</span><button type='button' id=" + i + ">削除</button></li></div>";
-             Listul.insertAdjacentHTML("beforeend", insHTML);
+             var insHTML = "<div class='lidiv'><li><span class='lispan' id=" + spanID + " >" + value.key_NGarray[i] + "</span><button type='button' id=" + i + ">削除</button></li></div>";
+             ListNGword.insertAdjacentHTML("beforeend", insHTML);
            }
          }
        })
+       
+     }else{
+       var insHTML = "<div class='nothingNG'><li>追加されているNGワードはありません！</li></div>";
+       ListNGword.insertAdjacentHTML("beforeend", insHTML);
      }
    })
  }

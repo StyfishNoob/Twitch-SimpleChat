@@ -18,3 +18,11 @@
   .deletedWord{
     text-decoration: line-through;
   }
+
+  .Listdiv{
+    float: left;
+  }
+
+  .nothingNG{
+    font-size: 15px;
+  }

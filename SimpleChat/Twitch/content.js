@@ -1,10 +1,10 @@
  'use strict';
 
- var comment = document.getElementsByClassName("text-fragment");
- var username = document.getElementsByClassName("chat-author__display-name");
- var stylesheet;
- var stylesheets;
- var item_num;
+ let comment = document.getElementsByClassName("text-fragment");
+ let username = document.getElementsByClassName("chat-author__display-name");
+ let stylesheet;
+ let stylesheets;
+ let item_num;
 
  const name_css = ".chat-line__username-container span";
  const separator_css = 'span[data-test-selector="chat-message-separator"]';
@@ -12,30 +12,32 @@
 
  const name_cssrule = ".chat-line__username-container span{ display: none !important; }";
  const separator_cssrule = 'span[data-test-selector="chat-message-separator"]{ display: none !important; }';
- var back_cssrule;
+ let back_cssrule;
 
  setInterval(function(){
+   let commentText;
+   let overMes;
+   let ngMes;
+
    comment = document.getElementsByClassName("text-fragment");
    username = document.getElementsByClassName("chat-author__display-name");
 
-   chrome.storage.local.get(["key_comment_limit","key_NGarray"], function(result){
-     for(var i = comment.length -1; i >= 0; i--){
-       var commentText = comment[i].innerHTML;
-       var overMes = "#文字数オーバーです";
-       var ngMes = "#NGワードが含まれています";
+   chrome.storage.local.get(["key_comment_limit","key_NGarray","key_restrainted"], function(result){
+     for(let i = comment.length -1; i >= 0; i--){
+       commentText = comment[i].innerHTML;
 
-       if(comment[i].innerHTML.length > result.key_comment_limit && result.key_comment_limit != 0 && comment[i].innerHTML != overMes){
+       overMes = "#文字数オーバーです";
+       ngMes = "#NGワードが含まれています";
+
+       if(commentText.length > result.key_comment_limit && result.key_comment_limit != 0 && commentText != overMes){
          comment[i].innerHTML = overMes;
-         console.log(username[i].innerHTML);
-
        }
 
        if(result.key_NGarray){
          result.key_NGarray.forEach(function(ngword){
-           var indexof = commentText.indexOf(ngword);
+           let indexof = commentText.indexOf(ngword);
 
            if(indexof != -1){
-             console.log(commentText);
              comment[i].innerHTML = ngMes;
            }
          })
@@ -125,8 +127,8 @@
  }
 
  var exist_ruledel = function(value){
-   var rulelength = stylesheets.cssRules.length -1;
-   for(var i = rulelength; i > 0; i--){
+   let rulelength = stylesheets.cssRules.length -1;
+   for(let i = rulelength; i > 0; i--){
      if(stylesheets.cssRules[i].selectorText == value){
        stylesheets.deleteRule(i);
      }
@@ -140,10 +142,10 @@
  }
 
  var check_css = function(value){
-   var toggle = false;
-   var length = stylesheets.cssRules.length -1;
+   let toggle = false;
+   let length = stylesheets.cssRules.length -1;
 
-   for(var i = 0; i < length; i++){
+   for(let i = 0; i < length; i++){
      if(stylesheets.cssRules[i].selectorText == value){
        toggle = true;
      }

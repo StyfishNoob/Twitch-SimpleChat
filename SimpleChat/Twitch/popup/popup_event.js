@@ -1,7 +1,5 @@
  'use strict';
 
- var ng_array;
-
  var limit_function = function(){
    chrome.storage.local.set({key_comment_limit: comment_limit.value});
    chrome.storage.local.get(["key_comment_limit"], function(result){
@@ -58,17 +56,19 @@
 
        NGword:{
          if(result.key_NGarray){
+           let temparray;
+
            if(array_comp(result.key_NGarray, NGword.value) == false){
-             ng_array = result.key_NGarray;
-             ng_array.push(NGword.value);
-             chrome.storage.local.set({key_NGarray: ng_array});
+             temparray = result.key_NGarray;
+             temparray.push(NGword.value);
+             chrome.storage.local.set({key_NGarray: temparray});
 
              addedNG.classList.add("added-display");
            }
          }else{
-           ng_array = new Array(0);
-           ng_array.push(NGword.value);
-           chrome.storage.local.set({key_NGarray: ng_array});
+           let temparray = new Array(0);
+           temparray.push(NGword.value);
+           chrome.storage.local.set({key_NGarray: temparray});
 
            addedNG.classList.add("added-display");
          }
@@ -86,11 +86,11 @@
  }
 
  var array_comp = function(array, target){
-   var returnValue = false;
+   let returnValue = false;
+
    if(array){
      array.forEach(function(value){
        if(value === target){
-         console.log(value + "" + target);
          returnValue = true;
        }
      })
