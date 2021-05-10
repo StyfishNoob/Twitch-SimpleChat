@@ -16,21 +16,17 @@
 
  setInterval(function(){
    let commentText;
-   let overMes;
-   let ngMes;
 
+   //最新のコメ情報を取得するため
    comment = document.getElementsByClassName("text-fragment");
    username = document.getElementsByClassName("chat-author__display-name");
 
-   chrome.storage.local.get(["key_comment_limit","key_NGarray","key_restrainted"], function(result){
+   chrome.storage.local.get(["key_comment_limit","key_NGarray"], function(result){
      for(let i = comment.length -1; i >= 0; i--){
        commentText = comment[i].innerHTML;
 
-       overMes = "#文字数オーバーです";
-       ngMes = "#NGワードが含まれています";
-
-       if(commentText.length > result.key_comment_limit && result.key_comment_limit != 0 && commentText != overMes){
-         comment[i].innerHTML = overMes;
+       if(commentText.length > result.key_comment_limit && result.key_comment_limit != 0){
+         comment[i].remove();
        }
 
        if(result.key_NGarray){
@@ -38,7 +34,7 @@
            let indexof = commentText.indexOf(ngword);
 
            if(indexof != -1){
-             comment[i].innerHTML = ngMes;
+             comment[i].remove();
            }
          })
        }

@@ -1,8 +1,7 @@
 
   .lispan{
     display: inline-block;
-    width: 15em;
-
+    width: 250px;
     font-size: 15px;
   }
 
@@ -23,6 +22,11 @@
     float: left;
   }
 
-  .nothingNG{
+  .NGli{
+    text-font-size: 15px;
+    width: 300px;
+  }
+
+  .inline{
     font-size: 15px;
   }

@@ -2,7 +2,8 @@
 
  window.onload = function(event){
    chrome.storage.local.get(["key_NGarray"], function(result){
-     if(result.key_NGarray){
+     if(result.key_NGarray.length > 0){
+       console.log(result.key_NGarray.length + "if")
        sortArray:{
          var temparray = new Array(0);
          var sortarray = new Array(0);
@@ -21,9 +22,10 @@
            }
          }
        })
-       
+
      }else{
-       var insHTML = "<div class='nothingNG'><li>追加されているNGワードはありません！</li></div>";
+       console.log(result.key_NGarray.length + "else")
+       var insHTML = "<div class='NGli'><li>追加されているNGワードはありません！</li></div>";
        ListNGword.insertAdjacentHTML("beforeend", insHTML);
      }
    })
@@ -38,6 +40,7 @@
      temparray = result.key_NGarray;
      delete temparray[value.target.id];
      chrome.storage.local.set({key_NGarray: temparray});
+     console.log(temparray)
    })
 
    deletedWord:{
