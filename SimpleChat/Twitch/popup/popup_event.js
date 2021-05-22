@@ -1,6 +1,17 @@
  'use strict';
 
  var limit_function = function(){
+
+   console.log(comment_limit.value)
+
+   if(comment_limit.value < 0){
+     comment_limit.value = 0;
+   }
+
+   if(comment_limit.value > 100000){
+     comment_limit.value = 100000;
+   }
+
    chrome.storage.local.set({key_comment_limit: comment_limit.value});
    chrome.storage.local.get(["key_comment_limit"], function(result){
      if(result.key_comment_limit == 0){
@@ -41,7 +52,7 @@
    chrome.storage.local.set({key_switch_darkmode: css_switch_darkmode.checked});
  }
 
- var addNG_function = function(){
+ var addNGword_function = function(){
    if(NGword.value){
      addedNG.classList.remove("added-display");
      addedNG_error.classList.remove("added-error-display");
@@ -81,6 +92,46 @@
    }
  }
 
+ var addNGuser_function = function(){
+   if(NGuser.value){
+     addedNG.classList.remove("added-display");
+     addedNG_error.classList.remove("added-error-display");
+
+     chrome.storage.local.get(["key_NGuser"], function(result){
+       console.log(result.key_NGuser);
+       WordCheck:{
+         if(array_comp(result.key_NGuser, NGuser.value) == true){
+           addedNG_error.classList.add("added-error-display");
+         }
+       }
+
+       NGuser:{
+         if(result.key_NGuser){
+           let temparray;
+
+           if(array_comp(result.key_NGuser, NGuser.value) == false){
+             temparray = result.key_NGuser;
+             temparray.push(NGuser.value);
+             chrome.storage.local.set({key_NGuser: temparray});
+
+             addedNG.classList.add("added-display");
+           }
+         }else{
+           let temparray = new Array(0);
+           temparray.push(NGuser.value);
+           chrome.storage.local.set({key_NGuser: temparray});
+
+           addedNG.classList.add("added-display");
+         }
+       }
+
+       clear:{
+         NGuser.value = "";
+       }
+     })
+   }
+ }
+
  var listNG_function = function(){
    window.open("/Twitch/popup/NG/NGList.html");
  }
@@ -102,12 +153,15 @@
 
  var clear = function(){
    chrome.storage.local.clear();
+   return "clear!";
  }
 
  comment_limit.addEventListener("input", limit_function);
+ comment_limit.addEventListener("keypress", limit_function);
  css_switch_onoff.addEventListener("click", onoff_function);
  css_switch_name.addEventListener("click", name_function);
  css_switch_stripe.addEventListener("click", stripe_function);
  css_switch_darkmode.addEventListener("click", darkmode_function);
- addNGbutton.addEventListener("click", addNG_function);
+ addNGword.addEventListener("click", addNGword_function);
+ addNGuser.addEventListener("click", addNGuser_function);
  Listbutton.addEventListener("click", listNG_function);

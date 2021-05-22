@@ -1,7 +1,10 @@
  'use strict';
 
- let comment = document.getElementsByClassName("text-fragment");
- let username = document.getElementsByClassName("chat-author__display-name");
+ let chatline;
+ let cl_name;
+ let cl_comment;
+ let comment;
+
  let stylesheet;
  let stylesheets;
  let item_num;
@@ -10,37 +13,58 @@
  const separator_css = 'span[data-test-selector="chat-message-separator"]';
  const back_css = ".chat-scrollable-area__message-container > :nth-child(2n)";
 
+
  const name_cssrule = ".chat-line__username-container span{ display: none !important; }";
  const separator_cssrule = 'span[data-test-selector="chat-message-separator"]{ display: none !important; }';
  let back_cssrule;
 
- setInterval(function(){
-   let commentText;
+ window.onload = function(){
+   setInterval(function(){
 
-   //最新のコメ情報を取得するため
-   comment = document.getElementsByClassName("text-fragment");
-   username = document.getElementsByClassName("chat-author__display-name");
+     //最新コメ情報を取得
+     comment = document.getElementsByClassName("text-fragment");
+     chatline = document.getElementsByClassName("chat-line__message");
 
-   chrome.storage.local.get(["key_comment_limit","key_NGarray"], function(result){
-     for(let i = comment.length -1; i >= 0; i--){
-       commentText = comment[i].innerHTML;
+     chrome.storage.local.get(["key_comment_limit","key_NGarray","key_NGuser"], function(result){
 
-       if(commentText.length > result.key_comment_limit && result.key_comment_limit != 0){
-         comment[i].remove();
+       for(let i = 0; i < comment.length; i++){
+
+         if(comment[i].innerHTML.length > result.key_comment_limit && result.key_comment_limit != 0){
+           //文字数オーバー
+           comment[i].innerHTML = "";
+         }
+
+         if(result.key_NGarray){
+           //NGワード
+           result.key_NGarray.forEach(function(value){
+             if(comment[i].innerHTML.indexOf(value) != -1 && comment[i].length != 0){ //含んでいるか
+               comment[i].innerHTML = "";
+             }
+           })
+         }
        }
 
-       if(result.key_NGarray){
-         result.key_NGarray.forEach(function(ngword){
-           let indexof = commentText.indexOf(ngword);
-
-           if(indexof != -1){
-             comment[i].remove();
+       for(let i = chatline.length; i >= 0; i--){
+         if(chatline[i]){
+           if(chatline[i].children[0].children[2]){
+             cl_comment = chatline[i].children[0].children[1].children[0].children[0].children[2].children[0];
+             cl_name = chatline[i].children[0].children[1].children[0].children[0].children[0].children[1].children[0].children[0];
            }
-         })
+
+           if(result.key_NGuser && cl_comment.length != 0){
+             //NGユーザー
+             result.key_NGuser.forEach(function(value){
+               if(cl_name.textContent == value){ //完全一致
+                 cl_comment.innerHTML = "";
+               }
+             })
+           }
+         }
        }
-     }
-   });
- }, 500)
+     });
+   }, 500)
+ }
+
 
  setInterval(function(){
    stylesheet = document.styleSheets;

@@ -9,7 +9,6 @@
      css_switch_stripe.checked = result.key_switch_stripe;
      css_switch_darkmode.checked = result.key_switch_darkmode;
 
-
      if(css_switch_onoff.checked == false){
        css_switch_name.disabled = true;
        css_switch_stripe.disabled = true;

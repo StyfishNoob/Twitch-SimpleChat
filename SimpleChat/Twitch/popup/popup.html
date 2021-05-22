@@ -14,7 +14,7 @@
     </center>
       <div class="option">
         <div>
-          <span class="col-1">ｽﾀｲﾙ切替</span>：
+          <span class="col-1">ON/OFF</span>：
           <span class="col-2">
             <label class="switch3__label">
               <input type="checkbox" class="switch3__input" id="css_switch_onoff">
@@ -60,16 +60,32 @@
         <div>
           <span class="col-1">文字数制限</span>：
           <span class="col-2">
-            <input type="range" min="0" max="50" step="5" id="comment_limit">
+            <!-- <input type="range" min="0" max="50" step="5" id="comment_limit"> -->
+            <span id="comment_limit_left"></span>
+            <input type="number" id="comment_limit" value="0" min="0" max="100000">
+            <span id="comment_limit_right"></span>
           </span>
           <span id="limit_display"></span>
         </div>
         <div>
           <span class="col-1">NGﾜｰﾄﾞ</span>：
-          <span class="col-2" id="NGinput">
-            <input type="text" id="NGword" size="16">
-            <button type="button" class="NGbutton" id="addNGbutton">追加</button>
-            <button type="button" class="NGbutton" id="Listbutton">一覧</button>
+          <span class="col-2 NGinput">
+            <input type="text" id="NGword" class="input" size="16">
+            <button type="button" class="NGbutton" id="addNGword">追加</button>
+            <!-- <button type="button" class="NGbutton" id="Listbutton_01">一覧</button> -->
+          </span>
+        </div>
+        <div>
+          <span class="col-1">NGﾕｰｻﾞｰ</span>：
+          <span class="col-2 NGinput">
+            <input type="text" id="NGuser" class="input" size="16">
+            <button type="button" class="NGbutton" id="addNGuser">追加</button>
+            <!-- <button type="button" class="NGbutton" id="Listbutton_02">一覧</button> -->
+          </span>
+        </div>
+        <div>
+          <span style="padding-left: 10px;">
+            <button type="button" id="Listbutton" style="line-height: 10px; width: 279px; font-size: 11px;">NGリスト</button>
           </span>
         </div>
       </div>
