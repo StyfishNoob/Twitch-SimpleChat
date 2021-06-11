@@ -29,16 +29,17 @@
 
        for(let i = 0; i < comment.length; i++){
 
-         if(comment[i].innerHTML.length > result.key_comment_limit && result.key_comment_limit != 0){
-           //文字数オーバー
-           comment[i].innerHTML = "";
+         if(comment[i].innerHTML.length > result.key_comment_limit && result.key_comment_limit != 0){ //文字数オーバー
+           if(!comment[i].children[0]){ //BetterTTV対策
+             comment[i].innerHTML = "";
+           }
          }
 
          if(result.key_NGarray){
            //NGワード
            result.key_NGarray.forEach(function(value){
-             if(comment[i].innerHTML.indexOf(value) != -1 && comment[i].length != 0){ //含んでいるか
-               comment[i].innerHTML = "";
+             if(comment[i].innerHTML.indexOf(value) != -1 && comment[i].length != 0){
+               comment[i].textContent = "";
              }
            })
          }

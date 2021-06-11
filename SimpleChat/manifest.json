@@ -1,8 +1,9 @@
 {
   "manifest_version":2,
   "name":"Twitch Simple Chat",
-  "version":"3.7",
+  "version":"4.2",
   "description":"Twitch Simple Chat",
+  "default_locale": "en",
 
   "icons": {
     "16":  "/Twitch/img/icon_128.png",

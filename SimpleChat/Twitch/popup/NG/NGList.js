@@ -19,13 +19,13 @@
              if(result.key_NGarray[i]){
                var spanID = "lispan_word" + i;
                var buttonID = "word_" + i;
-               var insHTML = "<div class='lidiv'><li><span class='lispan' id=" + spanID + " >" + value.key_NGarray[i] + "</span><button type='button' id=" + buttonID + ">削除</button></li></div>";
+               var insHTML = "<div class='lidiv'><li><span class='lispan' id=" + spanID + " >" + value.key_NGarray[i] + "</span><button type='button' id=" + buttonID + ">DEL</button></li></div>";
                ListNGword.insertAdjacentHTML("beforeend", insHTML);
              }
            }
          })
        }else{
-         var insHTML = "<div class='NGli'><li>登録されているNGワードはありません！</li></div>";
+         var insHTML = "<div class='NGli'><li>Blkword has not been added!</li></div>";
          ListNGword.insertAdjacentHTML("beforeend", insHTML);
        }
      })
@@ -44,13 +44,13 @@
              if(result.key_NGuser[i]){
                var spanID = "lispan_user" + i;
                var buttonID = "user_" + i;
-               var insHTML = "<div class='lidiv'><li><span class='lispan' id=" + spanID + " >" + value.key_NGuser[i] + "</span><button type='button' id=" + buttonID + ">削除</button></li></div>";
+               var insHTML = "<div class='lidiv'><li><span class='lispan' id=" + spanID + " >" + value.key_NGuser[i] + "</span><button type='button' id=" + buttonID + ">DEL</button></li></div>";
                ListNGuser.insertAdjacentHTML("beforeend", insHTML);
              }
            }
          })
        }else{
-         var insHTML = "<div class='NGli'><li>登録されているNGユーザーはいません！</li></div>";
+         var insHTML = "<div class='NGli'><li>Blkuser has not been added!</li></div>";
          ListNGuser.insertAdjacentHTML("beforeend", insHTML);
        }
      })
@@ -95,13 +95,13 @@
    let temp = new Array(0);
 
    chrome.storage.local.set({key_NGarray: temp});
-   alert("すべて削除しました！\nAll removed!");
+   alert("");
 
    while(list.firstChild){
      list.removeChild(list.firstChild)
    }
 
-   var insHTML = "<div class='NGli'><li>登録されているNGワードはありません！</li></div>";
+   var insHTML = "<div class='NGli'><li>Blkword has not been added!</li></div>";
    ListNGword.insertAdjacentHTML("beforeend", insHTML);
  }
 
@@ -110,13 +110,13 @@
    let temp = new Array(0);
 
    chrome.storage.local.set({key_NGuser: temp});
-   alert("すべて削除しました！\nAll removed!");
+   alert("DELETE ALL!");
 
    while(list.firstChild){
      list.removeChild(list.firstChild)
    }
 
-   var insHTML = "<div class='NGli'><li>登録されているNGユーザーはいません！</li></div>";
+   var insHTML = "<div class='NGli'><li>Blkuser has not been added!</li></div>";
    ListNGuser.insertAdjacentHTML("beforeend", insHTML);
  }
 

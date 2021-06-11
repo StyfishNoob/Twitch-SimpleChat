@@ -15,9 +15,9 @@
      }
 
      if(result.key_comment_limit == 0){
-       limit_display.innerHTML = "制限なし";
+       limit_display.innerHTML = "<b>Unrestricted</b>";
      }else{
-       limit_display.innerHTML = "制限" + result.key_comment_limit + "字";
+       limit_display.innerHTML = "Limit: " + result.key_comment_limit;
      }
 
    })

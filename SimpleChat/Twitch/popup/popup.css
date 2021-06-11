@@ -50,6 +50,12 @@
    outline: none;
  }
 
+ #addedNG{
+   positon: relative;
+   right: 35px;
+   top: 17px;
+ }
+
  .NGinput{
    padding-left: 1px;
  }
@@ -95,7 +101,7 @@
    display: none;
 
    position: absolute;
-   right: 12px;
+   right: 17px;
    top: 16px;
 
    padding: 2px;
@@ -103,7 +109,7 @@
    padding-right: 5px;
 
    background-color: #ed6f6f;
-   color: #7b5151;
+   color:: #000000;
    border-radius: 3px;
    font-size: 75%;
  }
