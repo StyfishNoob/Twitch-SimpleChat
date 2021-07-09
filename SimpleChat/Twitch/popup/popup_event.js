@@ -2,8 +2,6 @@
 
  var limit_function = function(){
 
-   console.log(comment_limit.value)
-
    if(comment_limit.value < 0){
      comment_limit.value = 0;
    }
@@ -48,8 +46,8 @@
    chrome.storage.local.set({key_switch_stripe: css_switch_stripe.checked});
  }
 
- var darkmode_function = function(){
-   chrome.storage.local.set({key_switch_darkmode: css_switch_darkmode.checked});
+ var chatfilter_function = function(){
+   chrome.storage.local.set({key_switch_chatfilter: css_switch_chatfilter.checked});
  }
 
  var addNGword_function = function(){
@@ -161,7 +159,7 @@
  css_switch_onoff.addEventListener("click", onoff_function);
  css_switch_name.addEventListener("click", name_function);
  css_switch_stripe.addEventListener("click", stripe_function);
- css_switch_darkmode.addEventListener("click", darkmode_function);
+ css_switch_chatfilter.addEventListener("click",chatfilter_function);
  addNGword.addEventListener("click", addNGword_function);
  addNGuser.addEventListener("click", addNGuser_function);
  Listbutton.addEventListener("click", listNG_function);
